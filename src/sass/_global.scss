@@ -1,0 +1,124 @@
+@use "variables" as variables;
+@use "breakpoints" as breakpoints;
+// font-size in button, h3, p, span, button created by <link> are set to become smaller in less than 665px of width
+
+@mixin buttonstyle(){
+  all: unset;
+  min-width: 1.5vw;
+  text-align: center;
+  border: 2px solid variables.$borderLineColor;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  @include breakpoints.maxwidth(665px){
+    font-size: calc(0.75rem + 0.25vw);
+  }
+}
+
+
+
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+ol{
+  margin-left: 0.5rem;
+  li{
+    list-style: desc;
+  }
+}
+
+a {
+  text-decoration: none;
+  transition: opacity 0.5s;
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+
+img {
+  vertical-align: bottom;
+  object-fit: cover;
+}
+
+h1 {
+  font-size: calc(2rem);
+}
+
+h2 {
+  font-size: calc(1.5rem + 1vw);
+}
+
+h3 {
+  font-size: calc(1.25rem + 0.5vw);
+  @include breakpoints.maxwidth(665px){
+    font-size: calc(1rem + 0.5vw);
+  }
+}
+
+p {
+  font-size: calc(1rem + 0.25vw);
+  @include breakpoints.maxwidth(665px){
+    font-size: calc(0.75rem + 0.25vw);
+  }
+}
+
+
+.container,
+section {
+  max-width: 1024px;
+  margin: 1rem auto;
+  padding: 0 1.25rem;
+}
+
+// for PostAuthor+TimeAgo
+span{
+  @include breakpoints.maxwidth(665px){
+    font-size: calc(0.75rem + 0.25vw);
+}}  
+
+
+button {
+  @include buttonstyle();
+  color: variables.$themeColor;
+
+  transition: all 0.5s;
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.disabled {
+  @include buttonstyle();
+  color:variables.$buttonDisabledColor;
+}
+
+.link {
+  border: 2px solid variables.$borderLineColor;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  color: variables.$themeColor;
+  text-align: center;
+  @include breakpoints.maxwidth(665px){
+    font-size: calc(0.75rem + 0.25vw);
+  }
+}
