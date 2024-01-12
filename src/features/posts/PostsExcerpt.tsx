@@ -4,11 +4,13 @@ import ReactionButtons from "./ReactionButtons"
 
 import { Link } from "react-router-dom"
 
+import React, {FC} from "react"
+
 import {Post} from "./postsSlice"
 type PostsExcerptProps = {
   post : Post
 }
-const PostsExcerpt = ({post}:PostsExcerptProps) => {
+let PostsExcerpt: FC<PostsExcerptProps> = ({post}:PostsExcerptProps) => {
   return (
     <li className="individualpost">
       <h3>{post.title}</h3>
@@ -22,5 +24,7 @@ const PostsExcerpt = ({post}:PostsExcerptProps) => {
     </li>
   )
 }
+
+PostsExcerpt = React.memo(PostsExcerpt)
 
 export default PostsExcerpt
