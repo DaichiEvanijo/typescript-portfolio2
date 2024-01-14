@@ -1,4 +1,5 @@
 import { Post } from "./postsSlice"
+import { useState } from "react"
 
 type PaginationProps = {
   posts:Post[]
@@ -7,19 +8,58 @@ type PaginationProps = {
   setCurrentPage:React.Dispatch<React.SetStateAction<number>>
 }
 const Pagination = ({posts, postsPerPage, currentPage, setCurrentPage}:PaginationProps) => {
+
+  const [numDisplayLimit] =useState(5)
+  const [maxNumDisplay, setMaxNumDisplay] =useState(5)
+  const [minNumDisplay, setMinNumDisplay] =useState(1)
+  const handleNextBtn =() => {
+    if(currentPage + 1 > maxNumDisplay){
+      setMaxNumDisplay(prev => prev + numDisplayLimit)
+      setMinNumDisplay(prev => prev + numDisplayLimit)
+    }
+    setCurrentPage(prev => prev + 1)
+  }
+  const handlePrevBtn =() => {
+    if((currentPage-1) % numDisplayLimit == 0){
+      setMaxNumDisplay(prev => prev - numDisplayLimit)
+      setMinNumDisplay(prev => prev - numDisplayLimit)
+    }
+    setCurrentPage(prev => prev - 1)
+  }
+  
+  
   
   let pages :number[]=[]
-  for(let i = 0; i<Math.ceil(posts.length/postsPerPage);i++){
-    pages.push(i+1)
+  for(let i = 1; i<= Math.ceil(posts.length/postsPerPage);i++){
+    pages.push(i)
   }
 
+
+  const dotOnDecrementSide = 1 < minNumDisplay ? <span>&hellip;</span> : null;
+  const dotOnIncrementSide = pages.length > maxNumDisplay ? <span>&hellip;</span> :null
+  
+  
   return (
     <div className="paginationbuttonlist">
-      {pages.map((page, index) => {
-        return(
-          <button key={index} onClick={()=>setCurrentPage(page)} className={currentPage === page ? "activebutton" : ""}>{page}</button>
-        )
-      })}
+      <div className="prevbtn">
+        <button onClick={handlePrevBtn} disabled={currentPage === 1} className={currentPage === 1 ? "activebutton" : ""}>Prev</button>
+      </div>
+      <div className="paginationnumber">
+        {dotOnDecrementSide}
+        {pages.map((page, index) => {
+          if(page >= minNumDisplay && page <= maxNumDisplay){
+            return(
+              <button key={index} onClick={()=>setCurrentPage(page)} className={currentPage === page ? "activebutton" : ""}>{page}</button>
+            )
+          }else{
+            return null
+          }
+        })}
+        {dotOnIncrementSide}
+      </div>
+      <div className="nextbtn">
+        <button onClick={handleNextBtn} disabled={currentPage>=10} className={ currentPage>=10 ? "activebutton" : ""}>Next</button>
+      </div>
     </div>
   )
 }

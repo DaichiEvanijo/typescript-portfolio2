@@ -60,8 +60,8 @@ header {
 // PostsList 
 .home{
   .postslist {
-  height: variables.$height - 5vh;
-  overflow-y: auto;
+    height: variables.$height - 5vh;
+    overflow-y: auto;
   
     h2 {
       margin: 1rem 0;
@@ -88,13 +88,15 @@ header {
     .paginationbuttonlist{
       display: flex;
       justify-content:center;
-      flex-wrap: wrap;
       button{
-        display: block;
-        margin: 0 5px;      
+        margin: 0 5px;  
       }
       button.activebutton{
         color:variables.$borderLineColor;
+      }
+      .paginationnumber{
+        display: flex;
+        flex-wrap: no-wrap;
       }
     }
   }
